@@ -1,0 +1,16 @@
+ #principal_inicio {
+	border: 1px solid green;
+	border-radius: 10px;
+	margin:  20px 90px 5px 5px;
+	padding: 5px;
+        width: 900px;
+	display: inline;
+	float: right;
+	font-size: 150%;
+} 
+
+ p  {
+	margin: 0px;
+	padding: 0px;
+	
+} 

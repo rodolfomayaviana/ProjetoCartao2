@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Portal de acompanhamento dos gastos com cartoes corporativos{% endblock %}</title>
+        {% block stylesheets %}
+	     <link rel="stylesheet" type="text/css" href="{{ asset('CSS/headerCSS.css') }}">
+	{% endblock %}
+    </head>
+    <body>
+        {% block body %}
+		<header id="cabecalho">
+			<figure id="figura_header_cartao">
+				<img id="imagem_cartao" src="{{ asset('images/img_cartao.jpg') }}" alt="Foto do cartao de credito">
+			</figure>
+			<h1>Cartoes corporativos: Quem paga e voce!</h1>
+		</header>
+		<section id="menu_lateral">
+			<ul id="menu_opcoes">
+				<li><a href="{{path('inicio')}}">Inicio</a></li>
+				<li><a href="{{path('portador', {'page': 1})}}">Portador</a></li>
+				<li><a href="{{path('orgao' , {'page': 1})}}">Orgao</a></li>
+				<li><a href="{{path('destinatario', {'page': 1})}}">Destinatario</a></li>
+				<li><a href="{{path('sacadores', {'page': 1})}}">Maiores Sacadores</a></li>
+				<li><a href="{{path('campeoes', {'page': 1})}}">Campeoes de gastos</a></li>
+			</ul>
+		</section>
+	{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

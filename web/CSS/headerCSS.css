@@ -1,0 +1,54 @@
+   body	{
+   font-family: "Arial", "Helvetica", sans-serif;
+}
+
+   #cabecalho {	
+	color: #5550EF;
+   	background-color:  #E88A37;	
+	margin-left: 0px;
+}
+
+   #imagem_cartao {
+        height: 140px;
+  	width: 200px;   
+	padding-left: 0px;
+	margin-left: 0px;
+	float: left;
+	padding-right: 10px;
+}
+
+   header {
+	height: 140px;
+	
+}    
+   h1 {
+	padding-top: 50px;
+	margin-left: 5px;
+}
+
+   figure {
+	align: left;
+	padding: 0px;
+	margin: 0px;
+}
+
+    #menu_lateral {
+	height: 800px;
+	float: left;
+	width: 200px;
+        background-color:  #E88A37;   
+}
+
+    #menu_lateral li {
+	margin-left: 0px;
+	padding-left: 20px;
+	height: 24px;
+	padding-top: 8px;
+	margin-top: 6px;
+        color: #5550EF;
+}
+
+    #menu_lateral ul {
+	margin: 0px;
+	padding: 0px;
+}

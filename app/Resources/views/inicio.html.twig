@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset ('CSS/inicioCSS.css') }}">
+{% endblock %}
+
+
+{% block body %}
+{{ parent() }}
+
+<section id="principal_inicio">
+<p>Bem vindos ao portal de fiscalizacao dos gastos com os cartoes corporativos do governo federal. Aqui estao disponiveis diversas visoes com relacao aos gastos nessa modalidade.</p>
+</br>
+<p>Fiscalize, pois essa fatura quem paga e voce!</p>
+</section>
+
+{% endblock %}

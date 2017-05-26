@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset ('CSS/portadorCSS.css') }}">
+{% endblock %}
+
+
+{% block body %}
+{{ parent() }}
+
+<section id="principal_portador">
+<h3>Pesquisa por portador<h3>
+
+<table id="tabela_portador">
+	<tr>
+		<th>Portador</th>
+		<th>Cargo</th>
+		<th>Orgao</th>
+		<th>Valor Gasto</th>
+	</tr>
+	{{ tabela|raw }}
+</table>
+
+<a href="{{path('portador', {'page': 1})}}">1</a> 
+<a href="{{path('portador', {'page': 2})}}">2</a>
+<a href="{{path('portador', {'page': 3})}}">3</a>
+<a href="{{path('portador', {'page': 4})}}">4</a>
+<a href="{{path('portador', {'page': 5})}}">5</a>
+<a href="{{path('portador', {'page': 6})}}">6</a>
+<a href="{{path('portador', {'page': 7})}}">7</a>
+<a href="{{path('portador', {'page': 8})}}">8</a>
+<a href="{{path('portador', {'page': 9})}}">9</a>
+<a href="{{path('portador', {'page': 10})}}">10</a>
+
+
+</section>
+
+{% endblock %}
