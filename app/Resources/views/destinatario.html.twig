@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset ('CSS/destinatarioCSS.css') }}">
+{% endblock %}
+
+
+{% block body %}
+{{ parent() }}
+
+<section id="principal_destinatario">
+<h3>Pesquisa por destinatario<h3>
+
+<table id="tabela_destinatario">
+	<tr>
+		<th>Portador</th>
+		<th>Cargo</th>
+		<th>Orgao</th>
+		<th>Valor Gasto</th>
+	</tr>
+	{{ tabela|raw }}
+</table>
+
+<a href="{{path('destinatario', {'page': 1})}}">1</a> 
+<a href="{{path('destinatario', {'page': 2})}}">2</a>
+<a href="{{path('destinatario', {'page': 3})}}">3</a>
+<a href="{{path('destinatario', {'page': 4})}}">4</a>
+<a href="{{path('destinatario', {'page': 5})}}">5</a>
+<a href="{{path('destinatario', {'page': 6})}}">6</a>
+<a href="{{path('destinatario', {'page': 7})}}">7</a>
+<a href="{{path('destinatario', {'page': 8})}}">8</a>
+<a href="{{path('destinatario', {'page': 9})}}">9</a>
+<a href="{{path('destinatario', {'page': 10})}}">10</a>
+
+
+</section>
+
+{% endblock %}

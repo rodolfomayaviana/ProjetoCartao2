@@ -91,26 +91,27 @@ class GastoController extends FOSRestController {
                 $gastoService = new GastoService($this->container);
                 $mysqlFetch = $gastoService->getGastosPorOrgao($orgao);
 
-                $gastoes = array();
+                $gastosPorOrgao = array();
 
                 while ($row = $mysqlFetch->fetch_assoc()) {
 
-                             array_push($gastoes, $this->createGastoFromOrgao($row["codigoOrgaoSuperior"],
+                             array_push($gastosPorOrgao, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
                                                 $row["codigoOrgaoSubordinado"],
                                                 $row["codigoUnidadeGestora"],
                                                 $row["anoTransacao"],
                                                 $row["mesTransacao"],
                                                 $row["nomeTransacao"],
                                                 $row["nomePortador"],
-
+                                                $row["codigoFavorecido"],
+                                                $row["dataTransacao"],
                                                 $row["valorTransacao"]));
                 }
 
-                return $gastoes;
+                return $gastosPorOrgao;
         }
 
 
-        public function createGastoFromOrgao($orgaoSuperior, $orgaoSubordinado, $unidadeGestora, $anoTransacao, $mesTransacao, $nomeTransacao, 
+        public function createGastoFromDB($orgaoSuperior, $orgaoSubordinado, $unidadeGestora, $anoTransacao, $mesTransacao, $nomeTransacao, 
 						$nomePortador, $codigoFavorecido, $dataTransacao,  $valorTransacao) {
 
                 $Gasto = new Gasto();
@@ -122,17 +123,82 @@ class GastoController extends FOSRestController {
 		$Gasto->setNomeTransacao($nomeTransacao);
 		$Gasto->setCodigoFavorecido($codigoFavorecido);
 		$Gasto->setDataTransacao($dataTransacao);
-                $Gasto->setNomePortador($portador);
+                $Gasto->setNomePortador($nomePortador);
                 $Gasto->setValorTransacao($valorTransacao);
 
                 return $Gasto;
         }
 
 
+        public function getGastosPorPortador ($portador)
+        {
+                $gastoService = new GastoService($this->container);
+                $mysqlFetch = $gastoService->getGastosPorPortador($portador);
+
+                $gastosPorPortador = array();
+
+                while ($row = $mysqlFetch->fetch_assoc()) {
+
+                             array_push($gastosPorPortador, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
+                                                $row["codigoOrgaoSubordinado"],
+                                                $row["codigoUnidadeGestora"],
+                                                $row["anoTransacao"],
+                                                $row["mesTransacao"],
+                                                $row["nomeTransacao"],
+                                                $row["nomePortador"],
+                                                $row["codigoFavorecido"],
+                                                $row["dataTransacao"],
+                                                $row["valorTransacao"]));
+                }
+
+                return $gastosPorPortador;
+        }
 
 
 
 
+        public function getGastosPorFavorecido ($codigoFavorecido)
+        {
+                $gastoService = new GastoService($this->container);
+                $mysqlFetch = $gastoService->getGastosPorFavorecido($codigoFavorecido);
+
+                $gastosPorFavorecido = array();
+
+                while ($row = $mysqlFetch->fetch_assoc()) {
+
+                             array_push($gastosPorFavorecido, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
+                                                $row["codigoOrgaoSubordinado"],
+                                                $row["codigoUnidadeGestora"],
+                                                $row["anoTransacao"],
+                                                $row["mesTransacao"],
+                                                $row["nomeTransacao"],
+                                                $row["nomePortador"],
+                                                $row["codigoFavorecido"],
+                                                $row["dataTransacao"],
+                                                $row["valorTransacao"]));
+                }
+
+                return $gastosPorFavorecido;
+        }
+
+        public function getSacadores ($ano, $mes)
+        {
+                $gastoService = new GastoService($this->container);
+                $mysqlFetch = $gastoService->getSacadores($ano, $mes);
+
+                $sacadores = array();
+
+                while ($row = $mysqlFetch->fetch_assoc()) {
+
+                             array_push($sacadores, $this->createGastoFromGastoes($row["codigoOrgaoSuperior"],
+                                                $row["codigoOrgaoSubordinado"],
+                                                $row["codigoUnidadeGestora"],
+                                                $row["nomePortador"],
+                                                $row["valorTransacao"]));
+                }
+
+                return $sacadores;
+        }
 
 
 

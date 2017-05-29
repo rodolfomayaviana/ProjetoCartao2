@@ -195,7 +195,7 @@ class Gasto
      */
     public function getAnoTransacao()
     {
-        return $this->anoTrasacao;
+        return $this->anoTransacao;
     }
 
     /**

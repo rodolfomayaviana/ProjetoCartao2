@@ -1,0 +1,28 @@
+ #principal_campeoes {
+	margin-left:  100px;
+        width: 400px;
+	display: inline;
+	font-size: 180%;
+	float: left;	
+}
+
+table {
+	width: 900px;	
+	border-radius: 8px;
+	margin: 20px 20px 0px 0px;
+	float: left;
+}
+
+table , td , th {
+	border-collapse: collapse;
+	border: 1px solid green;
+}
+
+th {
+	height: 50px;
+}
+
+h3 {
+	margin-left: 80px;
+	width: 500px;
+}

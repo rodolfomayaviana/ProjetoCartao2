@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset ('CSS/orgaoCSS.css') }}">
+{% endblock %}
+
+
+{% block body %}
+{{ parent() }}
+
+<section id="principal_orgao">
+<h3>Pesquisa por Orgao<h3>
+
+<table id="tabela_orgao">
+	<tr>
+		<th>Orgao Superior</th>
+		<th>Orgao Subordinado</th>
+		<th>Unidade Gestora</th>
+		<th>Ano Transacao</th>
+                <th>Mes Transacao</th>
+                <th>Nome Transacao</th>
+                <th>Portador</th>
+                <th>Favorecido</th>
+                <th>Data Transacao</th>
+                <th>Valor Transacao</th>
+	</tr>
+	{{ tabela|raw }}
+</table>
+
+<a href="{{path('orgao', {'page': 1})}}">1</a> 
+<a href="{{path('orgao', {'page': 2})}}">2</a>
+<a href="{{path('orgao', {'page': 3})}}">3</a>
+<a href="{{path('orgao', {'page': 4})}}">4</a>
+<a href="{{path('orgao', {'page': 5})}}">5</a>
+<a href="{{path('orgao', {'page': 6})}}">6</a>
+<a href="{{path('orgao', {'page': 7})}}">7</a>
+<a href="{{path('orgao', {'page': 8})}}">8</a>
+<a href="{{path('orgao', {'page': 9})}}">9</a>
+<a href="{{path('orgao', {'page': 10})}}">10</a>
+
+
+</section>
+
+{% endblock %}
