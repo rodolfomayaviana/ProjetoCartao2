@@ -38,18 +38,19 @@ class DefaultController extends Controller
         $gastoes = $gastoController->getGastoes(2016, 01);
 	$cntPaginacao = ($request->query->get('page') - 1) * 10;
 	$dados_tabela =  "";
+	$paginas = count($gastoes) / 10;
 	for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
 		$dados_tabela .= "<tr><td>";
 		$dados_tabela .= $gastoes[$i]->getNomePortador();
 		$dados_tabela .= "</td><td>";
 		$dados_tabela .= $orgaoController->getOrgaoById($gastoes[$i]->getCodigoOrgaoSubordinado())->getNomeDoOrgao();
 		$dados_tabela .= "</td><td>";
-		$dados_tabela .= $gastoes[$i]->getCodigoOrgaoSubordinado();
+		$dados_tabela .= $gastoes[$i]->getCodigoUnidadeGestora();
 		$dados_tabela .= "</td><td>";
 		$dados_tabela .= $gastoes[$i]->getValorTransacao();
 		$dados_tabela .= "</td></tr>";
 	}
-        return $this->render('campeoes.html.twig', ['tabela' => $dados_tabela]);
+        return $this->render('campeoes.html.twig', ['tabela' => $dados_tabela, 'paginas' => $request->query->get('page') - 1]);
 
     }
 
@@ -154,12 +155,12 @@ class DefaultController extends Controller
                 $dados_tabela .= "</td><td>";
                 $dados_tabela .= $orgaoController->getOrgaoById($sacadores[$i]->getCodigoOrgaoSubordinado())->getNomeDoOrgao();
                 $dados_tabela .= "</td><td>";
-                $dados_tabela .= $sacadores[$i]->getCodigoOrgaoSubordinado();
+                $dados_tabela .= $sacadores[$i]->getCodigoUnidadeGestora();
                 $dados_tabela .= "</td><td>";
                 $dados_tabela .= $sacadores[$i]->getValorTransacao();
                 $dados_tabela .= "</td></tr>";
         }
-        return $this->render('sacadores.html.twig', ['tabela' => $dados_tabela]);
+        return $this->render('sacadores.html.twig', ['tabela' => $dados_tabela, 'paginas' => $request->query->get('page') - 1]);
 
 
     }

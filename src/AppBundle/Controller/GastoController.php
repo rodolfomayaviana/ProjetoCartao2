@@ -76,7 +76,7 @@ class GastoController extends FOSRestController {
 
 		             array_push($gastoes, $this->createGastoFromGastoes($row["codigoOrgaoSuperior"],
 						$row["codigoOrgaoSubordinado"],
-						$row["codigoUnidadeGestora"],
+						$row["contador"],
 						$row["nomePortador"],
 						$row["valorTransacao"]));
 		}
@@ -192,7 +192,7 @@ class GastoController extends FOSRestController {
 
                              array_push($sacadores, $this->createGastoFromGastoes($row["codigoOrgaoSuperior"],
                                                 $row["codigoOrgaoSubordinado"],
-                                                $row["codigoUnidadeGestora"],
+                                                $row["contador"],
                                                 $row["nomePortador"],
                                                 $row["valorTransacao"]));
                 }
