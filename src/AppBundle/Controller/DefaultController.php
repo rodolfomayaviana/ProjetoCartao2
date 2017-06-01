@@ -21,7 +21,6 @@ class DefaultController extends Controller
     public function inicioAction(Request $request)
     {
 
-
 	$gastoController = new GastoController($this->getDoctrine()->getEntityManager(), $this->container);
 	$gastoes = $gastoController->getGastoes(2016, 01);
         return $this->render('inicio.html.twig');

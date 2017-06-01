@@ -38,9 +38,9 @@ class DownloadController extends Controller
 		$this->orgaoController = new OrgaoController($this->em);
 		$this->unidadeController = new UnidadeController($this->em);
 
-		$this->baixaArquivo(2016 , 12 );
-		$this->extraiZip(2016 , 12 );
-		$this->trataRegistro ( 2016 , 12);
+		$this->baixaArquivo(2016 , 01 );
+		$this->extraiZip(2016 , 01 );
+		$this->trataRegistro ( 2016 , 01);
 
 		 return new Response (
                 '<html><body>Banco de dados atualizado</body></html>');
