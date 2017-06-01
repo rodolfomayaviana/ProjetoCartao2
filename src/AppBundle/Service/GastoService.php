@@ -40,6 +40,7 @@ class GastoService extends Controller {
 
 
         $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
         $retorno = $stmt->fetchAll();
 		return $retorno;
 
@@ -63,6 +64,7 @@ class GastoService extends Controller {
                           WHERE codigoOrgaoSubordinado = " . $orgao;
 
         $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->execute();
         return $stmt->fetchAll();
 
         }
@@ -83,6 +85,7 @@ class GastoService extends Controller {
                       WHERE nomePortador = \"" . $portador . "\"";
 
             $stmt = $this->em->getConnection()->prepare($query);
+            $stmt->execute();
             return $stmt->fetchAll();
 
         }
@@ -104,6 +107,7 @@ class GastoService extends Controller {
                           WHERE codigoFavorecido = \"" . $codigoFavorecido . "\"";
 
             $stmt = $this->em->getConnection()->prepare($query);
+            $stmt->execute();
             return $stmt->fetchAll();
 
 	}
@@ -128,6 +132,7 @@ class GastoService extends Controller {
 
 
             $stmt = $this->em->getConnection()->prepare($query);
+            $stmt->execute();
             return $stmt->fetchAll();
 
         }
