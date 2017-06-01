@@ -28,7 +28,7 @@ class GastoService extends Controller {
 								codigoOrgaoSubordinado,
 								codigoUnidadeGestora,
 								count(*) as contador,
-								valorTransacao
+								sum(valorTransacao) as valorTransacao
 						      FROM gasto
 					      	      GROUP BY
 								 nomePortador,
@@ -119,7 +119,7 @@ class GastoService extends Controller {
                                                                 codigoOrgaoSubordinado,
                                                                 codigoUnidadeGestora,
 								count(*) as contador,
-                                                                valorTransacao
+                                                                sum(valorTransacao) as valorTransacao
                                                       FROM gasto
 						      WHERE nomeTransacao = "SAQUE CASH/ATM BB"
                                                       GROUP BY
