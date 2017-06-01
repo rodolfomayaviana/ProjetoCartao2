@@ -69,9 +69,7 @@ class GastoController extends FOSRestController {
  	{
 		$gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
 		$mysqlFetch = $gastoService->getGastoes($ano, $mes);
-
 		$gastoes = array();
-
                 foreach ($mysqlFetch as $row) {
 
 		             array_push($gastoes, $this->createGastoFromGastoes($row["codigoOrgaoSuperior"],

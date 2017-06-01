@@ -38,9 +38,9 @@ class GastoService extends Controller {
 							ORDER BY
 								valorTransacao DESC";
 
+
         $stmt = $this->em->getConnection()->prepare($sql);
         $retorno = $stmt->fetchAll();
-
 		return $retorno;
 
 	}
