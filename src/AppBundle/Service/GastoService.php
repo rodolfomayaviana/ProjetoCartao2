@@ -13,18 +13,17 @@ use AppBundle\Controller\DatabaseController;
 class GastoService extends Controller {
 
 	protected $container;
+	private $em;
 
-        public function __construct ($container) {
+    public function __construct ($container, $em) {
 
 		$this->container = $container;
-        	return;
+		$this->em = $em;
 	}
 
 	public function getGastoes($ano, $mes) {
 
-	        $DBController = new DatabaseController($this->container);
-	        $DBController->conectaDB();
-	        $retorno = $DBController->executaSQL('SELECT    nomePortador ,
+        $sql = "SELECT    nomePortador ,
 								codigoOrgaoSuperior,
 								codigoOrgaoSubordinado,
 								codigoUnidadeGestora,
@@ -37,10 +36,10 @@ class GastoService extends Controller {
                                                    	         codigoOrgaoSubordinado,
                                                         	 codigoUnidadeGestora
 							ORDER BY
-								valorTransacao DESC');
+								valorTransacao DESC";
 
-
-	        $DBController->desconectaDB();
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $retorno = $stmt->fetchAll();
 
 		return $retorno;
 
@@ -49,8 +48,7 @@ class GastoService extends Controller {
 
         public function getGastosPorOrgao($orgao) {
 
-                $DBController = new DatabaseController($this->container);
-                $DBController->conectaDB();
+
 		$query = "SELECT                codigoOrgaoSuperior,
                                                 codigoOrgaoSubordinado,
                                                 codigoUnidadeGestora,
@@ -64,46 +62,34 @@ class GastoService extends Controller {
                           FROM gasto
                           WHERE codigoOrgaoSubordinado = " . $orgao;
 
-                $retorno = $DBController->executaSQL($query);
-
-
-                $DBController->desconectaDB();
-
-                return $retorno;
+        $stmt = $this->em->getConnection()->prepare($query);
+        return $stmt->fetchAll();
 
         }
 
         public function getGastosPorPortador($portador) {
 
-                $DBController = new DatabaseController($this->container);
-                $DBController->conectaDB();
-                $query = "SELECT                codigoOrgaoSuperior,
-                                                codigoOrgaoSubordinado,
-                                                codigoUnidadeGestora,
-                                                anoTransacao,
-                                                mesTransacao,
-                                                nomeTransacao,
-                                                nomePortador,
-                                                codigoFavorecido,
-                                                dataTransacao,
-                                                valorTransacao
-                          FROM gasto
-                          WHERE nomePortador = \"" . $portador . "\"";
+            $query = "SELECT                codigoOrgaoSuperior,
+                                            codigoOrgaoSubordinado,
+                                            codigoUnidadeGestora,
+                                            anoTransacao,
+                                            mesTransacao,
+                                            nomeTransacao,
+                                            nomePortador,
+                                            codigoFavorecido,
+                                            dataTransacao,
+                                            valorTransacao
+                      FROM gasto
+                      WHERE nomePortador = \"" . $portador . "\"";
 
-                $retorno = $DBController->executaSQL($query);
-
-
-                $DBController->desconectaDB();
-
-                return $retorno;
+            $stmt = $this->em->getConnection()->prepare($query);
+            return $stmt->fetchAll();
 
         }
 
 
         public function getGastosPorFavorecido($codigoFavorecido) {
 
-                $DBController = new DatabaseController($this->container);
-                $DBController->conectaDB();
                 $query = "SELECT                codigoOrgaoSuperior,
                                                 codigoOrgaoSubordinado,
                                                 codigoUnidadeGestora,
@@ -117,20 +103,14 @@ class GastoService extends Controller {
                           FROM gasto
                           WHERE codigoFavorecido = \"" . $codigoFavorecido . "\"";
 
-                $retorno = $DBController->executaSQL($query);
-
-
-                $DBController->desconectaDB();
-
-                return $retorno;
+            $stmt = $this->em->getConnection()->prepare($query);
+            return $stmt->fetchAll();
 
 	}
 
         public function getSacadores($ano, $mes) {
 
-                $DBController = new DatabaseController($this->container);
-                $DBController->conectaDB();
-                $retorno = $DBController->executaSQL('SELECT    nomePortador ,
+                $query = 'SELECT    nomePortador ,
                                                                 codigoOrgaoSuperior,
                                                                 codigoOrgaoSubordinado,
                                                                 codigoUnidadeGestora,
@@ -144,12 +124,11 @@ class GastoService extends Controller {
                                                                  codigoOrgaoSubordinado,
                                                                  codigoUnidadeGestora
                                                         ORDER BY
-                                                                valorTransacao DESC');
+                                                                valorTransacao DESC';
 
 
-                $DBController->desconectaDB();
-
-                return $retorno;
+            $stmt = $this->em->getConnection()->prepare($query);
+            return $stmt->fetchAll();
 
         }
 
