@@ -67,12 +67,12 @@ class GastoController extends FOSRestController {
 
 	public function getGastoes ($ano, $mes)
  	{
-		$gastoService = new GastoService($this->container);
+		$gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
 		$mysqlFetch = $gastoService->getGastoes($ano, $mes);
 
 		$gastoes = array();
 
-                while ($row = $mysqlFetch->fetch_assoc()) {
+                foreach ($mysqlFetch as $row) {
 
 		             array_push($gastoes, $this->createGastoFromGastoes($row["codigoOrgaoSuperior"],
 						$row["codigoOrgaoSubordinado"],
@@ -88,12 +88,12 @@ class GastoController extends FOSRestController {
 
         public function getGastosPorOrgao ($orgao)
         {
-                $gastoService = new GastoService($this->container);
+                $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
                 $mysqlFetch = $gastoService->getGastosPorOrgao($orgao);
 
                 $gastosPorOrgao = array();
 
-                while ($row = $mysqlFetch->fetch_assoc()) {
+            foreach ($mysqlFetch as $row) {
 
                              array_push($gastosPorOrgao, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
                                                 $row["codigoOrgaoSubordinado"],
@@ -132,12 +132,12 @@ class GastoController extends FOSRestController {
 
         public function getGastosPorPortador ($portador)
         {
-                $gastoService = new GastoService($this->container);
+                $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
                 $mysqlFetch = $gastoService->getGastosPorPortador($portador);
 
                 $gastosPorPortador = array();
 
-                while ($row = $mysqlFetch->fetch_assoc()) {
+            foreach ($mysqlFetch as $row) {
 
                              array_push($gastosPorPortador, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
                                                 $row["codigoOrgaoSubordinado"],
@@ -159,12 +159,12 @@ class GastoController extends FOSRestController {
 
         public function getGastosPorFavorecido ($codigoFavorecido)
         {
-                $gastoService = new GastoService($this->container);
+                $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
                 $mysqlFetch = $gastoService->getGastosPorFavorecido($codigoFavorecido);
 
                 $gastosPorFavorecido = array();
 
-                while ($row = $mysqlFetch->fetch_assoc()) {
+            foreach ($mysqlFetch as $row) {
 
                              array_push($gastosPorFavorecido, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
                                                 $row["codigoOrgaoSubordinado"],
@@ -183,12 +183,12 @@ class GastoController extends FOSRestController {
 
         public function getSacadores ($ano, $mes)
         {
-                $gastoService = new GastoService($this->container);
+                $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
                 $mysqlFetch = $gastoService->getSacadores($ano, $mes);
 
                 $sacadores = array();
 
-                while ($row = $mysqlFetch->fetch_assoc()) {
+            foreach ($mysqlFetch as $row) {
 
                              array_push($sacadores, $this->createGastoFromGastoes($row["codigoOrgaoSuperior"],
                                                 $row["codigoOrgaoSubordinado"],
