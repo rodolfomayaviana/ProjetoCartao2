@@ -12,6 +12,7 @@ use AppBundle\Controller\PortadorController;
 use AppBundle\Controller\FavorecidoController;
 use AppBundle\Controller\UnidadeController;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 class DownloadController extends Controller
 {
@@ -49,7 +50,12 @@ class DownloadController extends Controller
 
     public function baixaArquivo($ano , $mes) {
 
-                $url = $this->container->getParameter('url_download');
+        try {
+            $url = $this->container->getParameter('url_download');
+        } catch (InvalidArgumentException $e) {
+            $url = getenv('URL_DOWNLOAD');
+        }
+
 
                 $url = substr_replace($url , str_pad($ano, 4, '0', STR_PAD_LEFT) , 61 , 4 );
                 $url = substr_replace($url , str_pad($mes, 2, '0', STR_PAD_LEFT) , 68 , 2 );
