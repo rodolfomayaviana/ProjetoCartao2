@@ -137,5 +137,14 @@ class GastoService extends Controller {
 
         }
 
+        public function deleteAll() {
+
+                $query = "DELETE FROM gasto";
+
+            $stmt = $this->em->getConnection()->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+
+        }
 
 }

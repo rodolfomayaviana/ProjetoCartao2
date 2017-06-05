@@ -224,4 +224,16 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     * @Route("/xyz", name="delete")
+     */
+    public function deleteAction(Request $request)
+    {
+
+        $gastoController = new GastoController($this->getDoctrine()->getEntityManager(), $this->container);
+        $sacadores = $gastoController->deleteGastos();
+
+    }
+
+
 }

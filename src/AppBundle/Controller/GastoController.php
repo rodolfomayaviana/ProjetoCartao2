@@ -199,6 +199,12 @@ class GastoController extends FOSRestController {
         }
 
 
+        public function deleteGastos ()
+        {
+                $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
+                $mysqlFetch = $gastoService->deleteAll();
+
+        }
 
 
 }
