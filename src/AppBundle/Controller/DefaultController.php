@@ -193,6 +193,8 @@ class DefaultController extends Controller
 
         for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
+                $dados_tabela .= $gastosPorPortador[$i]->getNomePortador();
+                $dados_tabela .= "</td><td>";
                 $dados_tabela .= $orgaoController->getOrgaoById($gastosPorPortador[$i]->getCodigoOrgaoSuperior())->getNomeDoOrgao();
                 $dados_tabela .= "</td><td>";
                 $dados_tabela .= $orgaoController->getOrgaoById($gastosPorPortador[$i]->getCodigoOrgaoSubordinado())->getNomeDoOrgao();
