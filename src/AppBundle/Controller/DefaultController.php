@@ -50,7 +50,8 @@ class DefaultController extends Controller
 		$dados_tabela .= $gastoes[$i]->getValorTransacao();
 		$dados_tabela .= "</td></tr>";
 	}
-        return $this->render('campeoes.html.twig', ['tabela' => $dados_tabela, 'paginas' => $request->query->get('page') - 1]);
+        return $this->render('campeoes.html.twig', ['tabela' => $dados_tabela, 'paginas' => $paginas ,
+						    'atual' => $request->query->get('page')]);
 
     }
 
@@ -67,6 +68,8 @@ class DefaultController extends Controller
         $gastosPorOrgao = $gastoController->getGastosPorOrgao(47205);
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
+	$paginas = count($gastoes) / 10;
+
         for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
                 $dados_tabela .= $orgaoController->getOrgaoById($gastosPorOrgao[$i]->getCodigoOrgaoSuperior())->getNomeDoOrgao();
@@ -91,7 +94,8 @@ class DefaultController extends Controller
                 $dados_tabela .= $gastosPorOrgao[$i]->getValorTransacao();
                 $dados_tabela .= "</td></tr>";
         }
-        return $this->render('orgao.html.twig', ['tabela' => $dados_tabela]);
+        return $this->render('orgao.html.twig', ['tabela' => $dados_tabela , 'paginas' => $paginas ,
+                                                    'atual' => $request->query->get('page')]);
 
     }
 
@@ -109,7 +113,9 @@ class DefaultController extends Controller
         $gastosPorFavorecido = $gastoController->getGastosPorFavorecido(60570793000106);
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
-        for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
+        $paginas = count($gastoes) / 10;
+
+	for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
                 $dados_tabela .= $orgaoController->getOrgaoById($gastosPorFavorecido[$i]->getCodigoOrgaoSuperior())->getNomeDoOrgao();
                 $dados_tabela .= "</td><td>";
@@ -133,7 +139,8 @@ class DefaultController extends Controller
                 $dados_tabela .= $gastosPorFavorecido[$i]->getValorTransacao();
                 $dados_tabela .= "</td></tr>";
         }
-        return $this->render('destinatario.html.twig', ['tabela' => $dados_tabela]);
+        return $this->render('destinatario.html.twig', ['tabela' => $dados_tabela , 'paginas' => $paginas ,
+                                                    'atual' => $request->query->get('page')]);
 
 
     }
@@ -149,6 +156,8 @@ class DefaultController extends Controller
         $sacadores = $gastoController->getSacadores(2016, 01);
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
+        $paginas = count($gastoes) / 10;
+
         for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
                 $dados_tabela .= $sacadores[$i]->getNomePortador();
@@ -160,7 +169,8 @@ class DefaultController extends Controller
                 $dados_tabela .= $sacadores[$i]->getValorTransacao();
                 $dados_tabela .= "</td></tr>";
         }
-        return $this->render('sacadores.html.twig', ['tabela' => $dados_tabela, 'paginas' => $request->query->get('page') - 1]);
+        return $this->render('sacadores.html.twig', ['tabela' => $dados_tabela, 'paginas' => $paginas ,
+                                                    'atual' => $request->query->get('page')]);
 
 
     }
@@ -179,6 +189,8 @@ class DefaultController extends Controller
         $gastosPorPortador = $gastoController->getGastosPorPortador("ABILIO M PINTO");
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
+        $paginas = count($gastoes) / 10;
+
         for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
                 $dados_tabela .= $orgaoController->getOrgaoById($gastosPorPortador[$i]->getCodigoOrgaoSuperior())->getNomeDoOrgao();
@@ -203,7 +215,9 @@ class DefaultController extends Controller
                 $dados_tabela .= $gastosPorPortador[$i]->getValorTransacao();
                 $dados_tabela .= "</td></tr>";
         }
-        return $this->render('portador.html.twig', ['tabela' => $dados_tabela]);
+        return $this->render('portador.html.twig', ['tabela' => $dados_tabela , 'paginas' => $paginas ,
+                                                    'atual' => $request->query->get('page')]);
+
 
 
     }

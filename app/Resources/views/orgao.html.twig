@@ -28,17 +28,17 @@
 	{{ tabela|raw }}
 </table>
 
-<a href="{{path('orgao', {'page': 1})}}">1</a> 
-<a href="{{path('orgao', {'page': 2})}}">2</a>
-<a href="{{path('orgao', {'page': 3})}}">3</a>
-<a href="{{path('orgao', {'page': 4})}}">4</a>
-<a href="{{path('orgao', {'page': 5})}}">5</a>
-<a href="{{path('orgao', {'page': 6})}}">6</a>
-<a href="{{path('orgao', {'page': 7})}}">7</a>
-<a href="{{path('orgao', {'page': 8})}}">8</a>
-<a href="{{path('orgao', {'page': 9})}}">9</a>
-<a href="{{path('orgao', {'page': 10})}}">10</a>
+{% if paginas - 10 < 1 %}
+        <a href="{{path('sacadores', {'page': 1})}}"><<</a>
+{% else %}
+        <a href="{{path('sacadores', {'page': paginas - 10})}}"><<</a>
+{% endif %}
 
+{% for i in paginas .. paginas + 9  %}
+<a href="{{path('sacadores', {'page': i + 1})}}">{{i + 1}}</a>
+{% endfor %}
+
+<a href="{{path('sacadores', {'page': paginas + 11})}}">>></a>
 
 </section>
 
