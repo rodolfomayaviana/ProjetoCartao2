@@ -22,7 +22,7 @@ class DefaultController extends Controller
     {
 
 	$gastoController = new GastoController($this->getDoctrine()->getEntityManager(), $this->container);
-	$gastoes = $gastoController->getGastoes(2016, 01);
+	$gastoes = $gastoController->getGastoes();
         return $this->render('inicio.html.twig');
 
     }
@@ -35,10 +35,10 @@ class DefaultController extends Controller
 
         $gastoController = new GastoController($this->getDoctrine()->getEntityManager(), $this->container);
         $orgaoController = new OrgaoController($this->getDoctrine()->getEntityManager(), $this->container);
-        $gastoes = $gastoController->getGastoes(2016, 01);
+        $gastoes = $gastoController->getGastoes();
 	$cntPaginacao = ($request->query->get('page') - 1) * 10;
 	$dados_tabela =  "";
-	$paginas = count($gastoes) / 10;
+  	$paginas = count($gastoes) / 10;
 	for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
 		$dados_tabela .= "<tr><td>";
 		$dados_tabela .= $gastoes[$i]->getNomePortador();
@@ -68,7 +68,7 @@ class DefaultController extends Controller
         $gastosPorOrgao = $gastoController->getGastosPorOrgao(47205);
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
-	$paginas = count($gastoes) / 10;
+	$paginas = count($gastosPorOrgao) / 10;
 
         for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
@@ -113,7 +113,7 @@ class DefaultController extends Controller
         $gastosPorFavorecido = $gastoController->getGastosPorFavorecido(60570793000106);
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
-        $paginas = count($gastoes) / 10;
+        $paginas = count($gastosPorFavorecido) / 10;
 
 	for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
@@ -156,7 +156,7 @@ class DefaultController extends Controller
         $sacadores = $gastoController->getSacadores(2016, 01);
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
-        $paginas = count($gastoes) / 10;
+        $paginas = count($sacadores) / 10;
 
         for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
@@ -189,7 +189,7 @@ class DefaultController extends Controller
         $gastosPorPortador = $gastoController->getGastosPorPortador("ABILIO M PINTO");
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
-        $paginas = count($gastoes) / 10;
+        $paginas = count($gastosPorPortador) / 10;
 
         for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
@@ -223,17 +223,5 @@ class DefaultController extends Controller
 
 
     }
-
-    /**
-     * @Route("/xyz", name="delete")
-     */
-    public function deleteAction(Request $request)
-    {
-
-        $gastoController = new GastoController($this->getDoctrine()->getEntityManager(), $this->container);
-        $sacadores = $gastoController->deleteGastos();
-
-    }
-
 
 }

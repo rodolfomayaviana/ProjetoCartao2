@@ -1,0 +1,14 @@
+
+# This file is auto-generated during the composer install
+parameters:
+    database_host: us-cdbr-iron-east-03.cleardb.net
+    database_port: null
+    database_name: heroku_49f4468273e674f
+    database_user: b8cb2e301720b7
+    database_password: 13bc20fe
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+

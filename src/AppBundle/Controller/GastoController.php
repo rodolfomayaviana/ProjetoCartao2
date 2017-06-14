@@ -65,10 +65,10 @@ class GastoController extends FOSRestController {
 		return $gasto;
 	}
 
-	public function getGastoes ($ano, $mes)
+	public function getGastoes ()
  	{
 		$gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
-		$mysqlFetch = $gastoService->getGastoes($ano, $mes);
+		$mysqlFetch = $gastoService->getGastoes();
 		$gastoes = array();
                 foreach ($mysqlFetch as $row) {
 

@@ -21,7 +21,7 @@ class GastoService extends Controller {
 		$this->em = $em;
 	}
 
-	public function getGastoes($ano, $mes) {
+	public function getGastoes() {
 
         $sql = "SELECT    nomePortador ,
 								codigoOrgaoSuperior,
@@ -139,7 +139,8 @@ class GastoService extends Controller {
 
         public function deleteAll() {
 
-                $query = "DELETE FROM gasto";
+                $query = "DELETE FROM gasto
+			where id > 0";
 
             $stmt = $this->em->getConnection()->prepare($query);
             $stmt->execute();

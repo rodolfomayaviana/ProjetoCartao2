@@ -38,9 +38,9 @@ class DownloadController extends Controller
 		$this->orgaoController = new OrgaoController($this->em);
 		$this->unidadeController = new UnidadeController($this->em);
 
-		$this->baixaArquivo(2016 , 01 );
-		$this->extraiZip(2016 , 01 );
-		$this->trataRegistro ( 2016 , 01);
+		$this->baixaArquivo(2015 , 12 );
+		$this->extraiZip(2015 , 12 );
+		$this->trataRegistro ( 2015 , 12);
 
 		 return new Response (
                 '<html><body>Banco de dados atualizado</body></html>');
@@ -49,7 +49,7 @@ class DownloadController extends Controller
 
 
     public function baixaArquivo($ano , $mes) {
-
+	echo $this->container->getParameter('url_download');
         try {
             $url = $this->container->getParameter('url_download');
         } catch (InvalidArgumentException $e) {
@@ -87,9 +87,9 @@ class DownloadController extends Controller
     public function extraiZip($ano , $mes)  {
 
 // Forma incorreta - verificar com o professor...
-
+		echo "passou";
 		system ('unzip -d archive archive/zipfile' . str_pad($ano, 4, '0', STR_PAD_LEFT) . str_pad($mes, 2, '0', STR_PAD_LEFT) . '.zip');
-
+		echo "abriu";
 //		$zip = new ZipArchive64;
 //        	$extractPath = "archive/";
 //

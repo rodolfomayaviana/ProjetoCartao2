@@ -28,18 +28,23 @@
 	{{ tabela|raw }}
 </table>
 
-{% if paginas - 10 < 1 %}
+{% set fatorPaginacao = ( atual // 10) * 10 %}
+
+{% if atual - 10 < 1 %}
         <a href="{{path('orgao', {'page': 1})}}"><<</a>
 {% else %}
-        <a href="{{path('orgao', {'page': paginas - 10})}}"><<</a>
+        <a href="{{path('orgao', {'page': atual - 10})}}"><<</a>
 {% endif %}
 
-{% for i in paginas .. paginas + 9  %}
-<a href="{{path('orgao', {'page': i + 1})}}">{{i + 1}}</a>
+{% for i in fatorPaginacao .. fatorPaginacao + 9  %}
+        {% if i <= paginas %}
+                <a href="{{path('orgao', {'page': i + 1 })}}">{{ i + 1 }}</a>
+        {% endif %}
 {% endfor %}
 
-<a href="{{path('orgao', {'page': paginas + 11})}}">>></a>
+<a href="{{path('orgao', {'page': fatorPaginacao + 11})}}">>></a>
 
 </section>
 
 {% endblock %}
+
