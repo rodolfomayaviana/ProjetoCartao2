@@ -31,7 +31,6 @@ class DownloadController extends Controller
 
 		$this->em = $this->getDoctrine()->getManager();
 
-//		$this->em = $em;
 		$this->gastoController = new GastoController($this->em, $this->container);
 		$this->portadorController = new PortadorController($this->em);
 		$this->favorecidoController = new FavorecidoController($this->em);
@@ -49,11 +48,11 @@ class DownloadController extends Controller
 
 
     public function baixaArquivo($ano , $mes) {
-	echo $this->container->getParameter('url_download');
+
         try {
-            $url = $this->container->getParameter('url_download');
+            $url = "http://arquivos.portaldatransparencia.gov.br/downloads.asp?a=2017&m=02&consulta=CPGF";
         } catch (InvalidArgumentException $e) {
-            $url = getenv('URL_DOWNLOAD');
+            $url = "http://arquivos.portaldatransparencia.gov.br/downloads.asp?a=2017&m=02&consulta=CPGF";
         }
 
 
@@ -87,9 +86,9 @@ class DownloadController extends Controller
     public function extraiZip($ano , $mes)  {
 
 // Forma incorreta - verificar com o professor...
-		echo "passou";
+
 		system ('unzip -d archive archive/zipfile' . str_pad($ano, 4, '0', STR_PAD_LEFT) . str_pad($mes, 2, '0', STR_PAD_LEFT) . '.zip');
-		echo "abriu";
+
 //		$zip = new ZipArchive64;
 //        	$extractPath = "archive/";
 //
@@ -106,7 +105,7 @@ class DownloadController extends Controller
     public function trataRegistro($ano , $mes) {
 
 		$handle = fopen("archive/" . str_pad($ano, 4, '0', STR_PAD_LEFT) . str_pad($mes, 2, '0', STR_PAD_LEFT) . "_CPGF.csv", "r");
-             //   $line = fgets($handle);
+
 		if ($handle) {
 			$line = fgets($handle);
 			while (($line = fgets($handle)) !== false) {
@@ -163,7 +162,7 @@ class DownloadController extends Controller
 		}
 
 // Trata favorecido
-// Saque nao vem com CNPJ do favorecido. Portanto, e desviado para o valor 1 (nao existe esse CNPJ ou CPF
+// Saque nao vem com CNPJ do favorecido. Portanto, e desviado para o valor 1 (nao existe esse CNPJ ou CPF)
 
 		if (substr($vector[10] , 0 , 5)  == "SAQUE") {
 			$vector[12] = 1;
@@ -196,14 +195,8 @@ class DownloadController extends Controller
 
 		$nomeSemEspecial = preg_replace("[^a-zA-Z0-9_]", "", strtr($vector[10], "áàãâéêíóôõúüçÁÀÃÂÉÊÍÓÔÕÚÜÇ ", "aaaaeeiooouucAAAAEEIOOOUUC_"));
 
-		$dataTransacao = new \DateTime();
-		$dataTransacao->createFromFormat('d/m/y', $vector[11]);
-	//echo "6" . $vector[6];
-	//echo "7" . $vector[7];
-         //       echo "superior" . $orgaoSuperior->getId();
-         //       echo "subordinado" . $orgaoSubordinado->getId();
-        //        echo "unidade" . $unidadeGestora->getId();
-       //         echo "favorecido" . $favorecido->getId();
+		$dataTransacao = \DateTime::createFromFormat('d/m/Y', $vector[11]);
+
 		$gasto = $this->gastoController->createGasto($orgaoSuperior->getId() , $orgaoSubordinado->getId() , $unidadeGestora->getId() ,  $vector[6] , $vector[7] , $portador->getNomePortador() , $nomeSemEspecial , $dataTransacao , $favorecido->getId() , $valorTransacao);
     }
 
