@@ -114,7 +114,6 @@ class DownloadController extends Controller
                                    $this->trataDados($line);
 				}
 				$i++;
-				echo $i;
    		 	}
 
   		 	 fclose($handle);
