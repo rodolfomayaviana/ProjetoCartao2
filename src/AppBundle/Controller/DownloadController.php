@@ -109,7 +109,11 @@ class DownloadController extends Controller
 		if ($handle) {
 			$line = fgets($handle);
 			while (($line = fgets($handle)) !== false) {
-                              $this->trataDados($line);
+				$i = 0;
+				if ($i > 1883) {
+                                   $this->trataDados($line);
+				}
+				$i++;
    		 	}
 
   		 	 fclose($handle);
