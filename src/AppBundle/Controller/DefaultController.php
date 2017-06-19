@@ -65,7 +65,7 @@ class DefaultController extends Controller
 	$unidadeController = new UnidadeController($this->getDoctrine()->getEntityManager(), $this->container);
 	$favorecidoController = new FavorecidoController($this->getDoctrine()->getEntityManager(), $this->container);
 
-        $gastosPorOrgao = $gastoController->getGastosPorOrgao(47205);
+        $gastosPorOrgao = $gastoController->getGastosPorOrgao();
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
 	$paginas = count($gastosPorOrgao) / 10;
@@ -97,7 +97,7 @@ class DefaultController extends Controller
         $unidadeController = new UnidadeController($this->getDoctrine()->getEntityManager(), $this->container);
         $favorecidoController = new FavorecidoController($this->getDoctrine()->getEntityManager(), $this->container);
 
-        $gastosPorFavorecido = $gastoController->getGastosPorFavorecido(60570793000106);
+        $gastosPorFavorecido = $gastoController->getGastosPorFavorecido();
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
         $paginas = count($gastosPorFavorecido) / 10;
@@ -143,7 +143,7 @@ class DefaultController extends Controller
 
         $gastoController = new GastoController($this->getDoctrine()->getEntityManager(), $this->container);
         $orgaoController = new OrgaoController($this->getDoctrine()->getEntityManager(), $this->container);
-        $sacadores = $gastoController->getSacadores(2016, 01);
+        $sacadores = $gastoController->getSacadores();
         $cntPaginacao = ($request->query->get('page') - 1) * 10;
         $dados_tabela =  "";
         $paginas = count($sacadores) / 10;
@@ -161,55 +161,6 @@ class DefaultController extends Controller
         }
         return $this->render('sacadores.html.twig', ['tabela' => $dados_tabela, 'paginas' => $paginas ,
                                                     'atual' => $request->query->get('page')]);
-
-
-    }
-
-    /**
-     * @Route("/portador", name="portador")
-     */
-    public function portadorAction(Request $request)
-    {
-
-        $gastoController = new GastoController($this->getDoctrine()->getEntityManager(), $this->container);
-        $orgaoController = new OrgaoController($this->getDoctrine()->getEntityManager(), $this->container);
-        $unidadeController = new UnidadeController($this->getDoctrine()->getEntityManager(), $this->container);
-        $favorecidoController = new FavorecidoController($this->getDoctrine()->getEntityManager(), $this->container);
-
-        $gastosPorPortador = $gastoController->getGastosPorPortador("ABILIO M PINTO");
-        $cntPaginacao = ($request->query->get('page') - 1) * 10;
-        $dados_tabela =  "";
-        $paginas = count($gastosPorPortador) / 10;
-
-        for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
-                $dados_tabela .= "<tr><td>";
-                $dados_tabela .= $gastosPorPortador[$i]->getNomePortador();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $orgaoController->getOrgaoById($gastosPorPortador[$i]->getCodigoOrgaoSuperior())->getNomeDoOrgao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $orgaoController->getOrgaoById($gastosPorPortador[$i]->getCodigoOrgaoSubordinado())->getNomeDoOrgao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $unidadeController->getUnidadeById($gastosPorPortador[$i]->getCodigoUnidadeGestora())
-		->getNomeDaUnidadeGestora();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorPortador[$i]->getAnoTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorPortador[$i]->getMesTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorPortador[$i]->getNomeTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorPortador[$i]->getNomePortador();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $favorecidoController->getFavorecidoById($gastosPorPortador[$i]->getCodigoFavorecido())->getNomeDoFavorecido();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorPortador[$i]->getDataTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorPortador[$i]->getValorTransacao();
-                $dados_tabela .= "</td></tr>";
-        }
-        return $this->render('portador.html.twig', ['tabela' => $dados_tabela , 'paginas' => $paginas ,
-                                                    'atual' => $request->query->get('page')]);
-
 
 
     }

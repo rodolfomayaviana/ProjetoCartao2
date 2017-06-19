@@ -84,10 +84,10 @@ class GastoController extends FOSRestController {
 
 
 
-        public function getGastosPorOrgao ($orgao)
+        public function getGastosPorOrgao ()
         {
                 $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
-                $mysqlFetch = $gastoService->getGastosPorOrgao($orgao);
+                $mysqlFetch = $gastoService->getGastosPorOrgao();
 
                 $gastosPorOrgao = array();
 
@@ -113,57 +113,11 @@ class GastoController extends FOSRestController {
                 return $Gasto;
         }
 
+        public function getGastosPorFavorecido ()
 
-        public function createGastoFromDB($orgaoSuperior, $orgaoSubordinado, $unidadeGestora, $anoTransacao, $mesTransacao, $nomeTransacao, 
-						$nomePortador, $codigoFavorecido, $dataTransacao,  $valorTransacao) {
-
-                $Gasto = new Gasto();
-                $Gasto->setCodigoOrgaoSuperior($orgaoSuperior);
-                $Gasto->setCodigoOrgaoSubordinado($orgaoSubordinado);
-                $Gasto->setCodigoUnidadeGestora($unidadeGestora);
-		$Gasto->setAnoTransacao($anoTransacao);
-		$Gasto->setMesTransacao($mesTransacao);
-		$Gasto->setNomeTransacao($nomeTransacao);
-		$Gasto->setCodigoFavorecido($codigoFavorecido);
-		$Gasto->setDataTransacao($dataTransacao);
-                $Gasto->setNomePortador($nomePortador);
-                $Gasto->setValorTransacao($valorTransacao);
-
-                return $Gasto;
-        }
-
-
-        public function getGastosPorPortador ($portador)
         {
                 $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
-                $mysqlFetch = $gastoService->getGastosPorPortador($portador);
-
-                $gastosPorPortador = array();
-
-            foreach ($mysqlFetch as $row) {
-
-                             array_push($gastosPorPortador, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
-                                                $row["codigoOrgaoSubordinado"],
-                                                $row["codigoUnidadeGestora"],
-                                                $row["anoTransacao"],
-                                                $row["mesTransacao"],
-                                                $row["nomeTransacao"],
-                                                $row["nomePortador"],
-                                                $row["codigoFavorecido"],
-                                                $row["dataTransacao"],
-                                                $row["valorTransacao"]));
-                }
-
-                return $gastosPorPortador;
-        }
-
-
-
-
-        public function getGastosPorFavorecido ($codigoFavorecido)
-        {
-                $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
-                $mysqlFetch = $gastoService->getGastosPorFavorecido($codigoFavorecido);
+                $mysqlFetch = $gastoService->getGastosPorFavorecido();
 
                 $gastosPorFavorecido = array();
 
@@ -190,10 +144,10 @@ class GastoController extends FOSRestController {
 
 
 
-        public function getSacadores ($ano, $mes)
+        public function getSacadores ()
         {
                 $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
-                $mysqlFetch = $gastoService->getSacadores($ano, $mes);
+                $mysqlFetch = $gastoService->getSacadores();
 
                 $sacadores = array();
 
@@ -208,14 +162,5 @@ class GastoController extends FOSRestController {
 
                 return $sacadores;
         }
-
-
-        public function deleteGastos ()
-        {
-                $gastoService = new GastoService($this->container, $this->getDoctrine()->getManager());
-                $mysqlFetch = $gastoService->deleteAll();
-
-        }
-
 
 }

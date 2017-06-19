@@ -47,7 +47,7 @@ class GastoService extends Controller {
 	}
 
 
-        public function getGastosPorOrgao($orgao) {
+        public function getGastosPorOrgao() {
 
 
         $sql = "SELECT    nomePortador ,
@@ -70,29 +70,8 @@ class GastoService extends Controller {
 
         }
 
-        public function getGastosPorPortador($portador) {
 
-            $query = "SELECT                codigoOrgaoSuperior,
-                                            codigoOrgaoSubordinado,
-                                            codigoUnidadeGestora,
-                                            anoTransacao,
-                                            mesTransacao,
-                                            nomeTransacao,
-                                            nomePortador,
-                                            codigoFavorecido,
-                                            dataTransacao,
-                                            valorTransacao
-                      FROM gasto
-                      WHERE nomePortador = \"" . $portador . "\"";
-
-            $stmt = $this->em->getConnection()->prepare($query);
-            $stmt->execute();
-            return $stmt->fetchAll();
-
-        }
-
-
-        public function getGastosPorFavorecido($codigoFavorecido) {
+        public function getGastosPorFavorecido() {
         $sql = "SELECT    nomePortador ,
                                                                 codigoFavorecido,
                                                                 count(*) as contador,
@@ -109,7 +88,7 @@ class GastoService extends Controller {
 
 	}
 
-        public function getSacadores($ano, $mes) {
+        public function getSacadores() {
 
                 $query = 'SELECT    nomePortador ,
                                                                 codigoOrgaoSuperior,
@@ -134,15 +113,5 @@ class GastoService extends Controller {
 
         }
 
-        public function deleteAll() {
-
-                $query = "DELETE FROM gasto
-			where id > 0";
-
-            $stmt = $this->em->getConnection()->prepare($query);
-            $stmt->execute();
-            return $stmt->fetchAll();
-
-        }
 
 }
