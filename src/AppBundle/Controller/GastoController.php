@@ -93,19 +93,24 @@ class GastoController extends FOSRestController {
 
             foreach ($mysqlFetch as $row) {
 
-                             array_push($gastosPorOrgao, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
+                             array_push($gastosPorOrgao, $this->createGastoFromOrgao($row["codigoOrgaoSuperior"],
                                                 $row["codigoOrgaoSubordinado"],
-                                                $row["codigoUnidadeGestora"],
-                                                $row["anoTransacao"],
-                                                $row["mesTransacao"],
-                                                $row["nomeTransacao"],
-                                                $row["nomePortador"],
-                                                $row["codigoFavorecido"],
-                                                $row["dataTransacao"],
+                                                $row["contador"],
                                                 $row["valorTransacao"]));
                 }
 
                 return $gastosPorOrgao;
+        }
+
+        public function createGastoFromOrgao($orgaoSuperior, $orgaoSubordinado, $unidadeGestora, $valorTransacao) {
+
+                $Gasto = new Gasto();
+                $Gasto->setCodigoOrgaoSuperior($orgaoSuperior);
+                $Gasto->setCodigoOrgaoSubordinado($orgaoSubordinado);
+                $Gasto->setCodigoUnidadeGestora($unidadeGestora);
+                $Gasto->setValorTransacao($valorTransacao);
+
+                return $Gasto;
         }
 
 
@@ -163,21 +168,27 @@ class GastoController extends FOSRestController {
                 $gastosPorFavorecido = array();
 
             foreach ($mysqlFetch as $row) {
-
-                             array_push($gastosPorFavorecido, $this->createGastoFromDB($row["codigoOrgaoSuperior"],
-                                                $row["codigoOrgaoSubordinado"],
-                                                $row["codigoUnidadeGestora"],
-                                                $row["anoTransacao"],
-                                                $row["mesTransacao"],
-                                                $row["nomeTransacao"],
-                                                $row["nomePortador"],
-                                                $row["codigoFavorecido"],
-                                                $row["dataTransacao"],
+			if ($row["codigoFavorecido"] != 1 ) {
+                             array_push($gastosPorFavorecido, $this->createGastoFromFavorecido($row["codigoFavorecido"],
+						$row["contador"],
                                                 $row["valorTransacao"]));
-                }
+                		}
+			}
 
                 return $gastosPorFavorecido;
         }
+
+        public function createGastoFromFavorecido($codigoFavorecido, $unidadeGestora, $valorTransacao) {
+
+                $Gasto = new Gasto();
+                $Gasto->setCodigoFavorecido($codigoFavorecido);
+                $Gasto->setCodigoUnidadeGestora($unidadeGestora);
+                $Gasto->setValorTransacao($valorTransacao);
+
+                return $Gasto;
+        }
+
+
 
         public function getSacadores ($ano, $mes)
         {

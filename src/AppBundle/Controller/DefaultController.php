@@ -76,20 +76,7 @@ class DefaultController extends Controller
                 $dados_tabela .= "</td><td>";
                 $dados_tabela .= $orgaoController->getOrgaoById($gastosPorOrgao[$i]->getCodigoOrgaoSubordinado())->getNomeDoOrgao();
                 $dados_tabela .= "</td><td>";
-                $dados_tabela .= $unidadeController->getUnidadeById($gastosPorOrgao[$i]->getCodigoUnidadeGestora())
-		->getNomeDaUnidadeGestora();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorOrgao[$i]->getAnoTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorOrgao[$i]->getMesTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorOrgao[$i]->getNomeTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorOrgao[$i]->getNomePortador();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $favorecidoController->getFavorecidoById($gastosPorOrgao[$i]->getCodigoFavorecido())->getNomeDoFavorecido();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorOrgao[$i]->getDataTransacao();
+                $dados_tabela .= $gastosPorOrgao[$i]->getCodigoUnidadeGestora();
                 $dados_tabela .= "</td><td>";
                 $dados_tabela .= $gastosPorOrgao[$i]->getValorTransacao();
                 $dados_tabela .= "</td></tr>";
@@ -117,24 +104,11 @@ class DefaultController extends Controller
 
 	for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
-                $dados_tabela .= $orgaoController->getOrgaoById($gastosPorFavorecido[$i]->getCodigoOrgaoSuperior())->getNomeDoOrgao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $orgaoController->getOrgaoById($gastosPorFavorecido[$i]->getCodigoOrgaoSubordinado())->getNomeDoOrgao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $unidadeController->getUnidadeById($gastosPorFavorecido[$i]->getCodigoUnidadeGestora())
-                ->getNomeDaUnidadeGestora();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorFavorecido[$i]->getAnoTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorFavorecido[$i]->getMesTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorFavorecido[$i]->getNomeTransacao();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorFavorecido[$i]->getNomePortador();
+                $dados_tabela .= $gastosPorFavorecido[$i]->getCodigoFavorecido();
                 $dados_tabela .= "</td><td>";
                 $dados_tabela .= $favorecidoController->getFavorecidoById($gastosPorFavorecido[$i]->getCodigoFavorecido())->getNomeDoFavorecido();
                 $dados_tabela .= "</td><td>";
-                $dados_tabela .= $gastosPorFavorecido[$i]->getDataTransacao();
+                $dados_tabela .= $gastosPorFavorecido[$i]->getCodigoUnidadeGestora();
                 $dados_tabela .= "</td><td>";
                 $dados_tabela .= $gastosPorFavorecido[$i]->getValorTransacao();
                 $dados_tabela .= "</td></tr>";

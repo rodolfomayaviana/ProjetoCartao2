@@ -50,20 +50,21 @@ class GastoService extends Controller {
         public function getGastosPorOrgao($orgao) {
 
 
-		$query = "SELECT                codigoOrgaoSuperior,
-                                                codigoOrgaoSubordinado,
-                                                codigoUnidadeGestora,
-		                                anoTransacao,
-						mesTransacao,
-						nomeTransacao,
-						nomePortador,
-						codigoFavorecido,
-						dataTransacao,
-						valorTransacao
-                          FROM gasto
-                          WHERE codigoOrgaoSubordinado = " . $orgao;
+        $sql = "SELECT    nomePortador ,
+                                                                codigoOrgaoSuperior,
+                                                                codigoOrgaoSubordinado,
+                                                                codigoUnidadeGestora,
+                                                                count(*) as contador,
+                                                                sum(valorTransacao) as valorTransacao
+                                                      FROM gasto
+                                                      GROUP BY
+                                                                 codigoOrgaoSuperior,
+                                                                 codigoOrgaoSubordinado,
+                                                                 codigoUnidadeGestora
+                                                        ORDER BY
+                                                                valorTransacao DESC";
 
-        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt = $this->em->getConnection()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
 
@@ -92,21 +93,17 @@ class GastoService extends Controller {
 
 
         public function getGastosPorFavorecido($codigoFavorecido) {
+        $sql = "SELECT    nomePortador ,
+                                                                codigoFavorecido,
+                                                                count(*) as contador,
+                                                                sum(valorTransacao) as valorTransacao
+                                                      FROM gasto
+                                                      GROUP BY
+                                                                 codigoFavorecido
+                                                        ORDER BY
+                                                                valorTransacao DESC";
 
-                $query = "SELECT                codigoOrgaoSuperior,
-                                                codigoOrgaoSubordinado,
-                                                codigoUnidadeGestora,
-                                                anoTransacao,
-                                                mesTransacao,
-                                                nomeTransacao,
-                                                nomePortador,
-                                                codigoFavorecido,
-                                                dataTransacao,
-                                                valorTransacao
-                          FROM gasto
-                          WHERE codigoFavorecido = \"" . $codigoFavorecido . "\"";
-
-            $stmt = $this->em->getConnection()->prepare($query);
+            $stmt = $this->em->getConnection()->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
 
