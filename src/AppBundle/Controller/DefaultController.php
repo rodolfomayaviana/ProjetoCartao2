@@ -104,9 +104,25 @@ class DefaultController extends Controller
 
 	for ( $i = $cntPaginacao ; $i < ($cntPaginacao + 10) ; $i++) {
                 $dados_tabela .= "<tr><td>";
-                $dados_tabela .= $gastosPorFavorecido[$i]->getCodigoFavorecido();
-                $dados_tabela .= "</td><td>";
-                $dados_tabela .= $favorecidoController->getFavorecidoById($gastosPorFavorecido[$i]->getCodigoFavorecido())->getNomeDoFavorecido();
+
+		switch ($gastosPorFavorecido[$i]->getCodigoFavorecido()) {
+			case 1:
+               			$dados_tabela .= " ";
+                		$dados_tabela .= "</td><td>";
+                		$dados_tabela .= "SAQUES EM ESPECIE";
+				break;
+                        case 2:
+                                $dados_tabela .= " ";
+                		$dados_tabela .= "</td><td>";
+		                $dados_tabela .= "FAVORECIDO NAO IDENTIFICADO";
+                                break;
+                        default:
+                                $dados_tabela .= $gastosPorFavorecido[$i]->getCodigoFavorecido();
+                		$dados_tabela .= "</td><td>";
+		                $dados_tabela .= $favorecidoController->getFavorecidoById($gastosPorFavorecido[$i]->getCodigoFavorecido())->getNomeDoFavorecido();
+				break;
+		}
+
                 $dados_tabela .= "</td><td>";
                 $dados_tabela .= $gastosPorFavorecido[$i]->getCodigoUnidadeGestora();
                 $dados_tabela .= "</td><td>";

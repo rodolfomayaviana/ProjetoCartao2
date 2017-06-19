@@ -168,12 +168,12 @@ class GastoController extends FOSRestController {
                 $gastosPorFavorecido = array();
 
             foreach ($mysqlFetch as $row) {
-			if ($row["codigoFavorecido"] != 1 ) {
+
                              array_push($gastosPorFavorecido, $this->createGastoFromFavorecido($row["codigoFavorecido"],
 						$row["contador"],
                                                 $row["valorTransacao"]));
                 		}
-			}
+
 
                 return $gastosPorFavorecido;
         }
